@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "684261927714",
+    "firebase_url": "https://encuestasmexicoandroid.firebaseio.com",
+    "project_id": "encuestasmexicoandroid",
+    "storage_bucket": "encuestasmexicoandroid.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:684261927714:android:db7a2dfce36f7827d9d37b",
+        "android_client_info": {
+          "package_name": "com.example.encuestasmexicoandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "684261927714-dm30tqje98t6n101k7l16s74kfjvlj3d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.encuestasmexicoandroid",
+            "certificate_hash": "c317ce8205a289dacef8630adee3ba3866340697"
+          }
+        },
+        {
+          "client_id": "684261927714-p76onmaeslji4e12d1vv6qdc83227v17.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBE5TNZREszgmEhIntFajzJIyB3ybV_dEk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "684261927714-p76onmaeslji4e12d1vv6qdc83227v17.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
