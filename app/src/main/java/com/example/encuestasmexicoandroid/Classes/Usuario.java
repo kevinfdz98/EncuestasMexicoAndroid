@@ -1,6 +1,7 @@
 package com.example.encuestasmexicoandroid.Classes;
 
 public class Usuario {
+    private String id;
     private String nombreUsuario;
     private String tipoUsuario;
     private String correoUsuario;
@@ -9,7 +10,8 @@ public class Usuario {
         //Empty constuctor needed for firebase
     }
 
-    public Usuario(String nombreUsuario, String tipoUsuario, String correoUsuario) {
+    public Usuario(String id,String nombreUsuario, String tipoUsuario, String correoUsuario) {
+        this.id = id;
         this.nombreUsuario = nombreUsuario;
         this.tipoUsuario = tipoUsuario;
         this.correoUsuario = correoUsuario;
@@ -37,5 +39,13 @@ public class Usuario {
 
     public void setCorreoUsuario(String correoUsuario) {
         this.correoUsuario = correoUsuario;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

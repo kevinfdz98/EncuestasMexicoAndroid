@@ -3,6 +3,7 @@ package com.example.encuestasmexicoandroid;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import com.example.encuestasmexicoandroid.ui.home.*;
 
 import com.example.encuestasmexicoandroid.Adapters.UsuarioAdapter;
 import com.example.encuestasmexicoandroid.Classes.Usuario;
@@ -14,6 +15,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import androidx.appcompat.widget.ScrollingTabContainerView;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });*/
 
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
@@ -73,5 +76,9 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    private void displayAddUserFragment(){
+
     }
 }

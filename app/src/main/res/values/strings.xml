@@ -15,4 +15,16 @@
     <string name="menu_listas">Listas</string>
     <string name="menu_Resultados">Resultados</string>
     <string name="menu_logout">Cerrar Sesión</string>
+    <string name="new_user_Title">Registro de Usuario</string>
+    <string name="new_user_Nombre">Nombre Completo *</string>
+    <string name="new_user_direccion">Dirección</string>
+    <string name="new_user_correo">Correo Electrónico *</string>
+    <string name="new_user_password">Contraseña *</string>
+    <string name="new_user_type">Tipo de Usuario *</string>
+    <string name="new_user_status_activo">Activo</string>
+    <string name="new_user_status_inactivo">Inactivo</string>
+
+    <string name="btn_guardar">Guardar</string>
+    <string name="btn_Cancelar">Cancelar</string>
+
 </resources>

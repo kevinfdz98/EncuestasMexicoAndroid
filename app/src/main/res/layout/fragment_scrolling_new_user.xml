@@ -4,10 +4,136 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.ScrollingFragmentNewUser">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/titleUser"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text" />
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:text="@string/new_user_Title" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:padding="6dp"
+        android:paddingLeft="9dp"
+        android:text="@string/new_user_Nombre"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+
+    <EditText
+        android:id="@+id/editTextNombreCompleto"
+        android:layout_width="350dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_edittext"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:layout_margin="5dp"
+        android:padding="16dp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:padding="6dp"
+        android:paddingLeft="9dp"
+        android:text="@string/new_user_direccion"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+
+    <EditText
+        android:id="@+id/editTextDireccion"
+        android:layout_width="350dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_edittext"
+        android:ems="10"
+        android:inputType="textPostalAddress"
+        android:layout_margin="5dp"
+        android:padding="16dp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:padding="6dp"
+        android:paddingLeft="9dp"
+        android:text="@string/new_user_correo"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+
+    <EditText
+        android:id="@+id/editTextCorreoElectronico"
+        android:layout_width="350dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_edittext"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:layout_margin="5dp"
+        android:padding="16dp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:padding="6dp"
+        android:paddingLeft="9dp"
+        android:text="@string/new_user_password"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="350dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_edittext"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:layout_margin="5dp"
+        android:padding="16dp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:padding="6dp"
+        android:paddingLeft="9dp"
+        android:text="@string/new_user_type"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+
+    <EditText
+        android:id="@+id/editTextType"
+        android:layout_width="350dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_edittext"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:layout_margin="5dp"
+        android:padding="16dp"
+        />
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+      <Button
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/btn_guardar"/>
+      <Button
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/btn_Cancelar"/>
+
+  </LinearLayout>
+
+</LinearLayout>
+
 </androidx.core.widget.NestedScrollView>
