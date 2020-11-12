@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,7 +28,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements UserAdapter.onRecyclerClickListener{
     // Variable of firestore to access data from firebase
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -48,6 +49,7 @@ public class HomeFragment extends Fragment {
         recyclerViewUser.setLayoutManager(new LinearLayoutManager(getContext()));
         mUserList = new ArrayList<>();
         displayUsers();
+
         FloatingActionButton newUserBtn = root.findViewById(R.id.button_add_user);
         newUserBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +57,8 @@ public class HomeFragment extends Fragment {
                 /*Snackbar.make(view, "Start new Activity here ", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();*/
                 Intent intent = new Intent(getActivity(), ActivityAddUser.class);
-                startActivity(intent);
+                intent.putExtra("editFlag", false);
+                startActivityForResult(intent, 1);
             }
         });
         return root;
@@ -67,20 +70,28 @@ public class HomeFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
+                    mUserList.clear();
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         String id = document.getId();
-                        String nombre = (String) document.get("nombre");
+                        String nombre = (String) document.get("nombreUsuario");
                         String tipo = (String)document.get("tipo");
                         String correo = (String)document.get("correo");
-                        mUserList.add(new Usuario(id, nombre, tipo, correo));
+                        String direccion =(String)document.get("direccion");
+                        String estatus = (String)document.get("estatus");
+                        mUserList.add(new Usuario(id,nombre,tipo, correo,
+                                direccion, estatus));
                     }
-                    userAdapter = new UserAdapter(getContext(), mUserList);
-                    recyclerViewUser.setAdapter(userAdapter);
+                    initAdapterRecycler();
                 } else {
                     Log.d("NO", "Error getting documents: ", task.getException());
                 }
             }
         });
+    }
+
+    private void initAdapterRecycler(){
+        userAdapter = new UserAdapter(getContext(), mUserList, this);
+        recyclerViewUser.setAdapter(userAdapter);
     }
 
     private void setUpRecyclerView(View view){
@@ -101,6 +112,14 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1){
+            displayUsers();
+        }
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
     }
@@ -108,5 +127,20 @@ public class HomeFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
+    }
+
+    @Override
+    public void onUserClick(int position) {
+        mUserList.get(position);
+        Intent intent = new Intent(getActivity(), ActivityAddUser.class);
+        Usuario user = mUserList.get(position);
+        intent.putExtra("editFlag", true);
+        intent.putExtra("uid", user.getId());
+        intent.putExtra("userName", user.getNombreUsuario());
+        intent.putExtra("userCorreo", user.getCorreoUsuario());
+        intent.putExtra("userTipo", user.getTipoUsuario());
+        intent.putExtra("userEstatus", user.getEstatus());
+        intent.putExtra("userDireccion", user.getDireccionUsuario());
+        startActivityForResult(intent, 2);
     }
 }

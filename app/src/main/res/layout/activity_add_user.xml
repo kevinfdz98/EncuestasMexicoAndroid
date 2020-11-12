@@ -109,27 +109,46 @@
             android:paddingLeft="9dp"
             android:text="@string/new_user_type"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
-
-        <EditText
-            android:id="@+id/editTextType"
-            android:layout_width="350dp"
-            android:layout_gravity="center"
+        <ToggleButton
+            android:id="@+id/tgBtnType"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_edittext"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:layout_margin="5dp"
-            android:padding="16dp"
-            />
+            android:textOn="@string/user_type_admin"
+            android:textOff="@string/user_type_encuestador"
+            android:layout_margin="3dp"
+            android:padding="6dp"
+            android:paddingLeft="9dp"
+            tools:ignore="OnClick" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:padding="6dp"
+            android:paddingLeft="9dp"
+            android:text="@string/new_user_status"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+        <ToggleButton
+            android:id="@+id/userStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textOn="@string/new_user_status_activo"
+            android:textOff="@string/new_user_status_inactivo"
+            android:layout_margin="3dp"
+            android:padding="6dp"
+            android:paddingLeft="9dp"
+            tools:ignore="OnClick" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <Button
+                android:id="@+id/btnGuardar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/btn_guardar"/>
             <Button
+                android:id="@+id/btnCancelar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/btn_Cancelar"/>

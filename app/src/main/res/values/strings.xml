@@ -21,6 +21,9 @@
     <string name="new_user_correo">Correo Electrónico *</string>
     <string name="new_user_password">Contraseña *</string>
     <string name="new_user_type">Tipo de Usuario *</string>
+    <string name="user_type_encuestador">Encuestador</string>
+    <string name="user_type_admin">Administrador</string>
+    <string name="new_user_status">Estatus de Usuario *</string>
     <string name="new_user_status_activo">Activo</string>
     <string name="new_user_status_inactivo">Inactivo</string>
 
