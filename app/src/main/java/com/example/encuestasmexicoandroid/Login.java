@@ -14,12 +14,20 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Login extends AppCompatActivity {
     EditText mEmail, mPassword;
     Button mLoginButton;
     Button mRegisterButton;
-    private FirebaseAuth fAuth = FirebaseAuth.getInstance();
+    // Variable of firestore to access data from firebase
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseAuth fAuth = FirebaseAuth.getInstance();
+    private final CollectionReference userRef = db.collection("Usuarios");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +49,44 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(Login.this, "Logged in", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            FirebaseUser user = fAuth.getCurrentUser();
+                            String idUser = user.getUid();
+                            DocumentReference docRef = userRef.document(idUser);
+                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        if (document.exists()) {
+                                            String tipoUsuario = (String)document.get("tipo");
+                                            String estatusUsuario = (String)document.get("estatus");
+                                            if(tipoUsuario.matches("Administrador") &&
+                                                    estatusUsuario.matches("Activo")){
+                                                Toast.makeText(Login.this, "Admin Logged in",
+                                                        Toast.LENGTH_SHORT).show();
+                                                startActivity(new Intent(getApplicationContext(),
+                                                        MainActivity.class));
+                                            }else if (tipoUsuario.matches("Encuestador") &&
+                                                    estatusUsuario.matches("Activo")){
+                                                Toast.makeText(Login.this, "Encuestador Logged in",
+                                                        Toast.LENGTH_SHORT).show();
+                                                startActivity(new Intent(getApplicationContext(),
+                                                        EncuestadorMain.class));
+                                            }
+
+                                        } else {
+                                            Toast.makeText(Login.this, "No existe " +
+                                                    "usuario", Toast.LENGTH_SHORT).show();
+                                        }
+                                    } else {
+                                        Toast.makeText(Login.this, "Fallo acceso a " +
+                                                "base de datos", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
                         } else {
-                            Toast.makeText(Login.this, "User not Logged in", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Login.this, "Usuario o contraseña incorrectos",
+                                    Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

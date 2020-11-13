@@ -1,21 +1,12 @@
 package com.example.encuestasmexicoandroid;
 
 import android.os.Bundle;
-import android.view.View;
 import android.view.Menu;
-import com.example.encuestasmexicoandroid.ui.home.*;
 
-import com.example.encuestasmexicoandroid.Adapters.UsuarioAdapter;
-import com.example.encuestasmexicoandroid.Classes.Usuario;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 
-import androidx.appcompat.widget.ScrollingTabContainerView;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -23,15 +14,12 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference userRef = db.collection("Usuarios");
-    private UsuarioAdapter usuarioAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

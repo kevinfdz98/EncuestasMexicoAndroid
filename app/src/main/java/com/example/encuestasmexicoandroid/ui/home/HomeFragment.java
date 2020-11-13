@@ -30,16 +30,15 @@ import java.util.List;
 
 public class HomeFragment extends Fragment implements UserAdapter.onRecyclerClickListener{
     // Variable of firestore to access data from firebase
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     // Reference to User data on firebase
-    private CollectionReference userRef = db.collection("Usuarios");
+    private final CollectionReference userRef = db.collection("Usuarios");
 
     //Variables used to implement the recycler view
     private RecyclerView recyclerViewUser;
     private UserAdapter userAdapter;
     private List<Usuario> mUserList;
-    private FloatingActionButton addUser;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -94,23 +93,6 @@ public class HomeFragment extends Fragment implements UserAdapter.onRecyclerClic
         recyclerViewUser.setAdapter(userAdapter);
     }
 
-    private void setUpRecyclerView(View view){
-       /* Task<QuerySnapshot> query;
-        query = userRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        Log.d("debuggin", document.getId() + " => " + document.getData());
-                    }
-                } else {
-                    Log.d("NO", "Error getting documents: ", task.getException());
-                }
-            }
-        });*/
-
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -120,18 +102,7 @@ public class HomeFragment extends Fragment implements UserAdapter.onRecyclerClic
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-    @Override
     public void onUserClick(int position) {
-        mUserList.get(position);
         Intent intent = new Intent(getActivity(), ActivityAddUser.class);
         Usuario user = mUserList.get(position);
         intent.putExtra("editFlag", true);

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="8dp"
+    android:clickable="true"
+    android:layout_margin="8dp"
+    android:focusable="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/text_view_form_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Elecciones 2020"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:layout_margin="10dp"/>
+        <TextView
+            android:id="@+id/text_view_form_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="Activo"
+            android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
+
+        <TextView
+            android:id="@+id/text_view_form_inicio"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="01/08/2020"
+            android:layout_marginStart="10dp"
+            android:layout_margin="5dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+        <TextView
+            android:id="@+id/text_view_form_fin"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="01/08/2020"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            />
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

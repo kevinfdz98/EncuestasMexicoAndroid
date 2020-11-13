@@ -43,10 +43,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder> {
         String name = currentUsuario.getNombreUsuario();
         String type = currentUsuario.getTipoUsuario();
         String email = currentUsuario.getCorreoUsuario();
+        String status = currentUsuario.getEstatus();
+
 
         holder.user_name.setText(name);
         holder.user_email.setText(email);
         holder.user_type.setText(type);
+        holder.user_status.setText(status);
+
     }
 
     @Override
@@ -58,6 +62,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder> {
         public TextView user_name;
         public TextView user_type;
         public TextView user_email;
+        public TextView user_status;
         onRecyclerClickListener onRecyclerClickListener;
 
         public UserHolder(@NonNull View itemView, onRecyclerClickListener onRecyclerClickListener) {
@@ -65,6 +70,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder> {
             user_name = itemView.findViewById(R.id.text_view_name_user);
             user_type = itemView.findViewById(R.id.tex_view_type_user);
             user_email = itemView.findViewById(R.id.text_view_email);
+            user_status = itemView.findViewById(R.id.text_view_status_user);
+
             this.onRecyclerClickListener = onRecyclerClickListener;
             itemView.setOnClickListener(this);
         }
