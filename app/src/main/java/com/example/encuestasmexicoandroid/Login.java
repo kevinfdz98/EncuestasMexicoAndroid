@@ -28,7 +28,6 @@ public class Login extends AppCompatActivity {
         mEmail = findViewById(R.id.editTextUsuario);
         mPassword = findViewById(R.id.editTextTextPassword);
         mLoginButton = findViewById(R.id.botonIngresar);
-        mRegisterButton = findViewById(R.id.botonRegistrar);
 
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,26 +49,6 @@ public class Login extends AppCompatActivity {
                     }
                 });
 
-            }
-        });
-
-        mRegisterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String email = mEmail.getText().toString().trim();
-                String password = mPassword.getText().toString().trim();
-
-                fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(Login.this, "User Registered", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        } else {
-                            Toast.makeText(Login.this, "User not Registered", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
             }
         });
     }
