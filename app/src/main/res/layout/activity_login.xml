@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#01545B"
     tools:context=".Login">
 
     <EditText
@@ -14,7 +15,6 @@
         android:layout_marginEnd="70dp"
         android:layout_marginBottom="54dp"
         android:ems="10"
-        android:hint="e-mail"
         android:importantForAutofill="no"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
@@ -30,7 +30,6 @@
         android:layout_marginEnd="70dp"
         android:layout_marginBottom="99dp"
         android:ems="10"
-        android:hint="contraseña"
         android:importantForAutofill="no"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/botonIngresar"
@@ -40,10 +39,14 @@
 
     <Button
         android:id="@+id/botonIngresar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="114dp"
+        android:layout_height="43dp"
         android:layout_marginBottom="196dp"
+        android:background="@drawable/rounded_button1"
         android:text="Log In"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.757"
@@ -55,8 +58,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="99dp"
         android:layout_marginBottom="9dp"
-        android:text="Email"
+        android:text="Usuario"
+        android:textColor="#FFFFFF"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/editTextUsuario"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -66,17 +71,22 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="99dp"
         android:layout_marginBottom="9dp"
-        android:text="Password"
+        android:text="Contraseña"
+        android:textColor="#FFFFFF"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/botonRegistrar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="114dp"
+        android:layout_height="43dp"
         android:layout_marginBottom="196dp"
+        android:background="@drawable/rounded_button"
         android:text="Register"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/botonIngresar"
         app:layout_constraintHorizontal_bias="0.527"

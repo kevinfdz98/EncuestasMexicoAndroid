@@ -17,8 +17,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
             android:gravity="center"
+            android:text="@string/new_user_Title"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:text="@string/new_user_Title" />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
@@ -142,16 +143,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/btnGuardar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/btn_guardar"/>
+                android:layout_width="114dp"
+                android:layout_height="43dp"
+                android:background="@drawable/rounded_button"
+                android:minWidth="114dp"
+                android:minHeight="43dp"
+                android:text="@string/btn_guardar"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:translationX="85dp" />
+
             <Button
                 android:id="@+id/btnCancelar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/btn_Cancelar"/>
+                android:layout_width="114dp"
+                android:layout_height="43dp"
+                android:background="@drawable/rounded_button1"
+                android:text="@string/btn_Cancelar"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:translationX="90dp" />
 
         </LinearLayout>
 
