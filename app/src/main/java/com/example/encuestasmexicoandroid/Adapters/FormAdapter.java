@@ -46,6 +46,11 @@ public class FormAdapter extends RecyclerView.Adapter<FormAdapter.FormHolder> {
         String inicio = currentForm.getFechaInicio();
         String fin = currentForm.getFechaFin();
 
+        holder.form_name.setText(formName);
+        holder.form_inicio.setText(inicio);
+        holder.form_fin.setText(fin);
+        holder.form_status.setText(status);
+
 
     }
 

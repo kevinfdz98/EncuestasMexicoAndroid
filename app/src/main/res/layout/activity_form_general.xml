@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FormGeneral"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/titleFormGeneral"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:text="@string/form_general_title" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:padding="6dp"
+        android:paddingLeft="9dp"
+        android:text="@string/form_general_nombre"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+
+    <EditText
+        android:id="@+id/editTextFormNombre"
+        android:layout_width="350dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_edittext"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:layout_margin="5dp"
+        android:padding="16dp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:padding="6dp"
+        android:paddingLeft="9dp"
+        android:text="@string/form_general_descripcion"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+
+    <EditText
+        android:id="@+id/editTextFormDescripcion"
+        android:layout_width="350dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_edittext"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:layout_margin="5dp"
+        android:padding="16dp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:padding="6dp"
+        android:paddingLeft="9dp"
+        android:text="@string/form_general_inicio"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+
+    <TextView
+        android:id="@+id/editTextFormInicio"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_edittext"
+        android:ems="10"
+        android:hint="Selecciona una fecha"
+        android:padding="16dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:padding="6dp"
+        android:paddingLeft="9dp"
+        android:text="@string/form_general_fin"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+
+    <TextView
+        android:id="@+id/editTextFormFin"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_edittext"
+        android:ems="10"
+        android:hint="Selecciona una fecha"
+        android:padding="16dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="5dp">
+        <Button
+            android:id="@+id/btnGuardar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_guardar"/>
+        <Button
+            android:id="@+id/btnCancelar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_Cancelar"/>
+
+    </LinearLayout>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -15,6 +15,7 @@
     <string name="menu_listas">Listas</string>
     <string name="menu_Resultados">Resultados</string>
     <string name="menu_logout">Cerrar Sesión</string>
+
     <string name="new_user_Title">Registro de Usuario</string>
     <string name="new_user_Nombre">Nombre Completo *</string>
     <string name="new_user_direccion">Dirección</string>
@@ -27,7 +28,15 @@
     <string name="new_user_status_activo">Activo</string>
     <string name="new_user_status_inactivo">Inactivo</string>
 
+    <string name="form_general_title">Información General</string>
+    <string name="form_general_nombre">Nombre del Formulario *</string>
+    <string name="form_general_descripcion">Descripción</string>
+    <string name="form_general_inicio">Fecha inicio *</string>
+    <string name="form_general_fin">Fecha fin *</string>
+
     <string name="btn_guardar">Guardar</string>
     <string name="btn_Cancelar">Cancelar</string>
+    <string name="btn_siguiente">Siguiente</string>
+
 
 </resources>

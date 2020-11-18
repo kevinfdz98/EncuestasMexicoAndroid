@@ -6,22 +6,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.encuestasmexicoandroid.Adapters.FormAdapter;
-import com.example.encuestasmexicoandroid.Adapters.UserAdapter;
-import com.example.encuestasmexicoandroid.AddForm;
 import com.example.encuestasmexicoandroid.Classes.FormList;
-import com.example.encuestasmexicoandroid.Classes.Formulario;
-import com.example.encuestasmexicoandroid.Classes.Usuario;
+import com.example.encuestasmexicoandroid.FormGeneral;
 import com.example.encuestasmexicoandroid.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -58,7 +51,7 @@ public class GalleryFragment extends Fragment implements FormAdapter.onRecyclerC
         newFormButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), AddForm.class);
+                Intent intent = new Intent(getActivity(), FormGeneral.class);
                 intent.putExtra("editFlag", false);
                 startActivityForResult(intent, 3);
             }
@@ -97,7 +90,7 @@ public class GalleryFragment extends Fragment implements FormAdapter.onRecyclerC
     @Override
     public void onFormClick(int position) {
         FormList formList = formularioList.get(position);
-        Intent intent = new Intent(getActivity(), AddForm.class);
+        Intent intent = new Intent(getActivity(), FormGeneral.class);
         intent.putExtra("editFlag", true);
         intent.putExtra("formID", formList.getFormID());
         startActivityForResult(intent, 4);

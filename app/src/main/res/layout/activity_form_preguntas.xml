@@ -4,13 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EncuestadorMain">
+    tools:context=".FormPreguntas">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_forms_encuestador"
+        android:id="@+id/recycler_view_preguntas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="visible" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/button_add_new_pregunta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_baseline_add_24"
+        android:contentDescription="TODO"
+        />
 
 
 
