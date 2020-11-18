@@ -71,19 +71,6 @@ public class QuestionView extends AppCompatActivity {
         numberOfQuestions = intent.getIntExtra("numberQuestions", 0);
         getListas();
         setSpinners();
-        btnGuardar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createQuestion();
-            }
-        });
-        btnCancelar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
 
 
     }
