@@ -7,14 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".FormGeneral"
     android:orientation="vertical">
+
     <TextView
         android:id="@+id/titleFormGeneral"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
         android:gravity="center"
+        android:text="@string/form_general_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        android:text="@string/form_general_title" />
+        android:textSize="22sp"
+        android:textStyle="bold" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -98,16 +101,28 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_margin="5dp">
+
         <Button
             android:id="@+id/btnGuardar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_guardar"/>
+            android:layout_width="143dp"
+            android:layout_height="43dp"
+            android:background="@drawable/round_button_guardar"
+            android:text="@string/btn_guardar"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:translationX="55dp" />
+
         <Button
             android:id="@+id/btnCancelar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_Cancelar"/>
+            android:layout_width="143dp"
+            android:layout_height="43dp"
+            android:background="@drawable/round_button_cancelar"
+            android:text="@string/btn_Cancelar"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:translationX="60dp" />
 
     </LinearLayout>
 
