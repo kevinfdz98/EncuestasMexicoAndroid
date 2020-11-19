@@ -109,7 +109,7 @@ public class SlideshowFragment extends Fragment implements ListasAdapter.onRecyc
 
         Intent intent = new Intent(getActivity(), EditLista.class);
         intent.putExtra("Listas", listas1);
-        startActivityForResult(intent, 2);
+        startActivityForResult(intent, 1);
 
 
        /* Intent intent = new Intent(getActivity(), ActivityAddUser.class);
