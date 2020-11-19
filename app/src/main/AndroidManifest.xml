@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".QuestionView"></activity>
+        <activity android:name=".EditLista"></activity>
+        <activity android:name=".AddNuevaLista" />
+        <activity android:name=".QuestionView" />
         <activity android:name=".FormPreguntas" />
         <activity android:name=".FormGeneral" />
         <activity android:name=".EncuestadorMain" />
