@@ -110,17 +110,5 @@ public class SlideshowFragment extends Fragment implements ListasAdapter.onRecyc
         Intent intent = new Intent(getActivity(), EditLista.class);
         intent.putExtra("Listas", listas1);
         startActivityForResult(intent, 1);
-
-
-       /* Intent intent = new Intent(getActivity(), ActivityAddUser.class);
-        Usuario user = mUserList.get(position);
-        intent.putExtra("editFlag", true);
-        intent.putExtra("uid", user.getId());
-        intent.putExtra("userName", user.getNombreUsuario());
-        intent.putExtra("userCorreo", user.getCorreoUsuario());
-        intent.putExtra("userTipo", user.getTipoUsuario());
-        intent.putExtra("userEstatus", user.getEstatus());
-        intent.putExtra("userDireccion", user.getDireccionUsuario());
-        startActivityForResult(intent, 2);*/
     }
 }
