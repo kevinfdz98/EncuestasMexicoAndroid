@@ -45,7 +45,7 @@ public class SlideshowFragment extends Fragment implements ListasAdapter.onRecyc
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
-        //((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("                     Listas");
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("                     Listas");
         //((AppCompatActivity)getActivity()).getSupportActionBar().setIcon(R.drawable.logo);
 
         recyclerView = root.findViewById(R.id.recycler_view_listas);

@@ -44,7 +44,7 @@ public class HomeFragment extends Fragment implements UserAdapter.onRecyclerClic
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        //((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("                   Usuarios");
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("                   Usuarios");
         recyclerViewUser = root.findViewById(R.id.recycler_view_usuarios);
         recyclerViewUser.setHasFixedSize(true);
         recyclerViewUser.setLayoutManager(new LinearLayoutManager(getContext()));

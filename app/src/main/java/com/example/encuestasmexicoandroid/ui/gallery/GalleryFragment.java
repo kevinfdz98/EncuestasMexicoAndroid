@@ -43,7 +43,7 @@ public class GalleryFragment extends Fragment implements FormAdapter.onRecyclerC
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_gallery, container, false);
-        //((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("                 Formularios");
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("                 Formularios");
         recyclerViewForm = root.findViewById(R.id.recycler_view_forms);
         recyclerViewForm.setHasFixedSize(true);
         recyclerViewForm.setLayoutManager(new LinearLayoutManager(getContext()));
