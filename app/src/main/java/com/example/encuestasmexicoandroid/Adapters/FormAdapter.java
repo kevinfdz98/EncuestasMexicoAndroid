@@ -56,7 +56,10 @@ public class FormAdapter extends RecyclerView.Adapter<FormAdapter.FormHolder> {
 
     @Override
     public int getItemCount() {
-        return mFormularioList.size();
+        if (mFormularioList != null) {
+            return mFormularioList.size();
+        }
+        return 0;
     }
 
     public class FormHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

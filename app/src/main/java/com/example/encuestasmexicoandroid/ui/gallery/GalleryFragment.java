@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,6 +43,7 @@ public class GalleryFragment extends Fragment implements FormAdapter.onRecyclerC
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_gallery, container, false);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("                 Formularios");
         recyclerViewForm = root.findViewById(R.id.recycler_view_forms);
         recyclerViewForm.setHasFixedSize(true);
         recyclerViewForm.setLayoutManager(new LinearLayoutManager(getContext()));

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -45,6 +46,8 @@ public class SlideshowFragment extends Fragment implements ListasAdapter.onRecyc
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("                     Listas");
+        //((AppCompatActivity)getActivity()).getSupportActionBar().setIcon(R.drawable.logo);
 
         recyclerView = root.findViewById(R.id.recycler_view_listas);
         recyclerView.setHasFixedSize(true);

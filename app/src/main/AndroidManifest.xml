@@ -9,14 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".ActivityMostrarPreguntas"></activity>
-        <activity android:name=".EditLista" />
-        <activity android:name=".AddNuevaLista" />
-        <activity android:name=".QuestionView" />
-        <activity android:name=".FormPreguntas" />
-        <activity android:name=".FormGeneral" />
+        <activity android:name=".EditLista" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".AddNuevaLista" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".QuestionView" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".FormPreguntas" android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".FormGeneral" android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".EncuestadorMain" />
-        <activity android:name=".Login">
+        <activity android:name=".Login"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,6 +27,7 @@
         </activity>
         <activity
             android:name=".ActivityAddUser"
+            android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"
