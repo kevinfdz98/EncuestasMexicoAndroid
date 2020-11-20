@@ -3,6 +3,8 @@ package com.example.encuestasmexicoandroid;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 
 import com.example.encuestasmexicoandroid.Classes.Usuario;
 import com.google.android.material.navigation.NavigationView;
@@ -54,12 +56,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        /*NavigationView navView = findViewById(R.id.nav_logout);
-
-        navView.getMenu().findItem(R.id.nav_logout).setOnMenuItemClickListener(menuItem -> {
-            logout();
-            return true;
-        });*/
     }
 
     @Override
