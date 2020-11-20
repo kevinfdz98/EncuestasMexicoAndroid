@@ -32,16 +32,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/round_button_guardar"
             android:onClick="guardar"
-            android:text="Guardar" />
+            android:text="Guardar"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/buttonCancelar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@drawable/round_button_cancelar"
             android:onClick="terminar"
-            android:text="Cancelar" />
+            android:text="Cancelar"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
@@ -56,10 +64,11 @@
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:text="Nueva Lista"
             android:textAlignment="center"
-            android:textSize="36sp"
+            android:textColor="#000000"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <ScrollView
@@ -77,7 +86,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Nombre lista *"
-                    android:textSize="24sp"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <EditText
@@ -93,7 +103,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Respuesta 1 *"
-                    android:textSize="24sp"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <EditText

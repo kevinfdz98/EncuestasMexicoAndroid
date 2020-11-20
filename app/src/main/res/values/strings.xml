@@ -30,13 +30,15 @@
 
     <string name="form_general_title">Información General</string>
     <string name="form_general_nombre">Nombre del Formulario *</string>
-    <string name="form_general_descripcion">Descripción</string>
+    <string name="form_general_descripcion">Descripción *</string>
     <string name="form_general_inicio">Fecha inicio *</string>
     <string name="form_general_fin">Fecha fin *</string>
 
     <string name="btn_guardar">Guardar</string>
     <string name="btn_Cancelar">Cancelar</string>
     <string name="btn_siguiente">Siguiente</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

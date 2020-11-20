@@ -1,9 +1,12 @@
 package com.example.encuestasmexicoandroid;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 
+import com.example.encuestasmexicoandroid.Classes.Usuario;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -44,12 +47,19 @@ public class MainActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_resultados)
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_resultados, R.id.nav_logout)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        /*NavigationView navView = findViewById(R.id.nav_logout);
+
+        navView.getMenu().findItem(R.id.nav_logout).setOnMenuItemClickListener(menuItem -> {
+            logout();
+            return true;
+        });*/
     }
 
     @Override
