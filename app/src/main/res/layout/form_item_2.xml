@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="8dp"
+    android:clickable="true"
+    android:layout_margin="8dp"
+    android:focusable="true">
+
+    <TextView
+        android:id="@+id/text_view_form_name_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Elecciones 2020"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+</androidx.cardview.widget.CardView>

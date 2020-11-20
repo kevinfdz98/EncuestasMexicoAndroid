@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -93,6 +94,20 @@ public class SlideshowFragment extends Fragment implements ListasAdapter.onRecyc
     private void initAdapterRecycler(){
         listasAdapter = new ListasAdapter(getContext(), mListasList, this);
         recyclerView.setAdapter(listasAdapter);
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                listasAdapter.deleteItem(viewHolder.getAdapterPosition());
+                displayListas();
+            }
+        }).attachToRecyclerView(recyclerView);
     }
 
     @Override

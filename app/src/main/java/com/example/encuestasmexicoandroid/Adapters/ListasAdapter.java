@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.encuestasmexicoandroid.Classes.Listas;
 import com.example.encuestasmexicoandroid.R;
 import com.firebase.ui.auth.data.model.User;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
@@ -31,6 +33,11 @@ public class ListasAdapter extends RecyclerView.Adapter<ListasAdapter.ListasHold
     public ListasAdapter.ListasHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.listas_item, parent, false);
         return new ListasHolder(view, mOnRecyclerClickListener);
+    }
+
+    public void deleteItem(int position) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Listas").document(mListasList.get(position).getDocumentID()).delete();
     }
 
     @Override

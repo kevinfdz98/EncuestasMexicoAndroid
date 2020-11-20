@@ -9,13 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
-import com.example.encuestasmexicoandroid.Adapters.PreguntaAdapter;
+import com.example.encuestasmexicoandroid.Adapters.MostrarPreguntasAdapter;
 import com.example.encuestasmexicoandroid.Classes.Pregunta;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -27,27 +25,25 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
-public class FormPreguntas extends AppCompatActivity implements PreguntaAdapter.onRecyclerClickListener{
+public class ActivityMostrarPreguntas extends AppCompatActivity implements MostrarPreguntasAdapter.onRecyclerClickListener{
+
     // Variable of firestore to access data from firebase
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     // Reference to User data on firebase
     private final CollectionReference formRef = db.collection("Formularios");
 
     private RecyclerView recyclerView;
-    private PreguntaAdapter preguntaAdapter;
+    private MostrarPreguntasAdapter mostrarPreguntasAdapter;
     private List<Pregunta> preguntaList;
     private String TAG = "display";
     private String formID;
     private int NumberofQuestions = 0;
     private DocumentReference documentReference ;
-    FloatingActionButton questionEdit;
-    FloatingActionButton finish;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_form_preguntas);
+        setContentView(R.layout.activity_mostrar_preguntas);
         recyclerView = findViewById(R.id.recycler_view_preguntas);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -56,30 +52,6 @@ public class FormPreguntas extends AppCompatActivity implements PreguntaAdapter.
         formID = intent.getStringExtra("formID");
         documentReference = formRef.document(formID);
         displayQuestions(documentReference);
-        questionEdit = findViewById(R.id.button_add_new_pregunta);
-        finish = findViewById(R.id.button_finish);
-        questionEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent1 = new Intent(getApplication(), QuestionView.class);
-                intent1.putExtra("formID", formID);
-                intent1.putExtra("numberQuestions", NumberofQuestions);
-                startActivityForResult(intent1, 101);
-            }
-        });
-        finish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(FormPreguntas.this, MainActivity.class);        // Specify any activity here e.g. home or splash or login etc
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                i.putExtra("EXIT", true);
-                startActivity(i);
-                finish();
-            }
-        });
-
 
     }
 
@@ -107,7 +79,7 @@ public class FormPreguntas extends AppCompatActivity implements PreguntaAdapter.
                                 preguntaList.add(new Pregunta(entry.getKey(),textoPregunta,tipoPregunta));
                             }
                         }
-                       Collections.sort(preguntaList, new Comparator<Pregunta>() {
+                        Collections.sort(preguntaList, new Comparator<Pregunta>() {
                             @Override
                             public int compare(Pregunta pregunta, Pregunta t1) {
                                 return pregunta.getPreguntaID().compareTo(t1.getPreguntaID());
@@ -128,13 +100,13 @@ public class FormPreguntas extends AppCompatActivity implements PreguntaAdapter.
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-            displayQuestions(documentReference);
+        displayQuestions(documentReference);
 
     }
 
     public void  initAdapaterRecycler(){
-        preguntaAdapter = new PreguntaAdapter(this,preguntaList, this);
-        recyclerView.setAdapter(preguntaAdapter);
+        mostrarPreguntasAdapter = new MostrarPreguntasAdapter(this, preguntaList, this);
+        recyclerView.setAdapter(mostrarPreguntasAdapter);
     }
 
     @Override
@@ -146,7 +118,7 @@ public class FormPreguntas extends AppCompatActivity implements PreguntaAdapter.
         intent1.putExtra("textoPregunta", preguntaEditar.getTextoPregunta());
         intent1.putExtra("tipoPregunta", preguntaEditar.getTipoPregunta());
         if(preguntaEditar.getTipoPregunta().matches("Opción Múltiple")){intent1
-        .putExtra("listaRespuesta",preguntaEditar.getListaRespuesta());}
+                .putExtra("listaRespuesta",preguntaEditar.getListaRespuesta());}
         intent1.putExtra("formID", formID);
         intent1.putExtra("numberQuestions", NumberofQuestions);
         startActivityForResult(intent1, 102);

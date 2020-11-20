@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
-import com.example.encuestasmexicoandroid.Adapters.FormAdapter;
+import com.example.encuestasmexicoandroid.Adapters.FormAdapter2;
 import com.example.encuestasmexicoandroid.Classes.FormList;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,7 +22,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EncuestadorMain extends AppCompatActivity implements FormAdapter.onRecyclerClickListener {
+public class EncuestadorMain extends AppCompatActivity implements FormAdapter2.onRecyclerClickListener {
     // Variable of firestore to access data from firebase
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     // Reference to User data on firebase
@@ -28,7 +30,7 @@ public class EncuestadorMain extends AppCompatActivity implements FormAdapter.on
 
     //Variables used to implement the recycler view
     private RecyclerView recyclerViewForm;
-    private FormAdapter formAdapter;
+    private FormAdapter2 formAdapter2;
     private List<FormList> formularioList;
 
     @Override
@@ -39,6 +41,12 @@ public class EncuestadorMain extends AppCompatActivity implements FormAdapter.on
         recyclerViewForm.setHasFixedSize(true);
         recyclerViewForm.setLayoutManager(new LinearLayoutManager(this));
         formularioList = new ArrayList<>();
+        displayForms();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         displayForms();
     }
 
@@ -66,13 +74,15 @@ public class EncuestadorMain extends AppCompatActivity implements FormAdapter.on
                 });
     }
     private void initAdapterRecycler(){
-        formAdapter = new FormAdapter(this, formularioList, this);
-        recyclerViewForm.setAdapter(formAdapter);
+        formAdapter2 = new FormAdapter2(this, formularioList, this);
+        recyclerViewForm.setAdapter(formAdapter2);
     }
 
     @Override
     public void onFormClick(int position) {
 
-
+        Intent intent = new Intent(this, ActivityMostrarPreguntas.class);
+        intent.putExtra("formID", formularioList.get(position).getFormID());
+        startActivityForResult(intent, 1);
     }
 }

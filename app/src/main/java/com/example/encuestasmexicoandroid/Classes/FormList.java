@@ -1,6 +1,8 @@
 package com.example.encuestasmexicoandroid.Classes;
 
-public class FormList {
+import java.io.Serializable;
+
+public class FormList implements Serializable {
     private String formID;
     private String nombreFormulario;
     private String fechaInicio;
