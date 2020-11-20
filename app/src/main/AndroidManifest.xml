@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".ActivityMostrarPreguntas"></activity>
         <activity android:name=".EditLista" android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".AddNuevaLista" android:theme="@style/AppTheme.NoActionBar"/>
