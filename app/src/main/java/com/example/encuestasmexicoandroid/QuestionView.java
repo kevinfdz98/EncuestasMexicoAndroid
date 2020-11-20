@@ -17,16 +17,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.encuestasmexicoandroid.Classes.FormList;
+import com.example.encuestasmexicoandroid.Classes.Pregunta;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
+import com.google.protobuf.Any;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class QuestionView extends AppCompatActivity {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -42,9 +50,11 @@ public class QuestionView extends AppCompatActivity {
     LinearLayout layoutSpinner;
     Button btnGuardar;
     Button btnCancelar;
+    private String TAG = "display";
     private String formID;
     private int numberOfQuestions;
     private String version = "1";
+    Boolean editFlag = false;
 
 
     String [] mOptions = {"Pregunta Abierta", "SI/NO", "Del 1 al 10",
@@ -63,16 +73,42 @@ public class QuestionView extends AppCompatActivity {
         tituloListas = findViewById(R.id.titulolistas);
         layoutSpinner = findViewById(R.id.layoutSpinner);
         outputSpinnerListas = findViewById(R.id.outPutListasSpinner);
-        btnGuardar = findViewById(R.id.btnGuardar);
-        btnCancelar = findViewById(R.id.btnCancelar);
+        btnGuardar = findViewById(R.id.btn_guardar_pregunta_nueva);
+        btnCancelar = findViewById(R.id.btn_cancelar_pregunta_nueva);
         listaDeRespuestas = new ArrayList<>();
         Intent intent = getIntent();
         formID = intent.getStringExtra("formID");
         numberOfQuestions = intent.getIntExtra("numberQuestions", 0);
+        editFlag = intent.getBooleanExtra("editFlag", false);
         getListas();
         setSpinners();
+        setButtons();
+
+        if (editFlag){
+            fillInfo();
+        }
 
 
+    }
+
+public void fillInfo(){
+        Intent intent = getIntent();
+        intent.getStringExtra("textoPregunta");
+}
+    public void setButtons(){
+        btnCancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        btnGuardar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createQuestion();
+            }
+        });
     }
 
 
@@ -125,6 +161,7 @@ public class QuestionView extends AppCompatActivity {
         String preguntaTexto = textoPregunta.getText().toString();
         String tipoPregunta = outputSpinner.getText().toString();
         String listaRespuestas = outputSpinnerListas.getText().toString();
+        numberOfQuestions = numberOfQuestions + 1;
         String idQuestion = "v" + version + "p" + numberOfQuestions;
 
 
@@ -133,8 +170,31 @@ public class QuestionView extends AppCompatActivity {
                             "obligatorios",
                     Toast.LENGTH_SHORT).show();
         }else{
-           final DocumentReference documentReference = formRef.document(formID);
+            Map<String, String> question = new HashMap<>();
+            question.put("textoPregunta",preguntaTexto);
+            question.put("tipoPregunta",tipoPregunta);
 
+            if (tipoPregunta.matches("Opción Múltiple"))
+            {question.put("listaRespuesta",listaRespuestas);}
+            Map<String, Map> fullQuestion = new HashMap<>();
+            Map<String, Map> preguntas= new HashMap<>();
+            fullQuestion.put(idQuestion,question);
+            preguntas.put("preguntas",fullQuestion);
+           final DocumentReference documentReference = formRef.document(formID);
+           documentReference.set(preguntas, SetOptions.merge())
+                   .addOnSuccessListener(new OnSuccessListener<Void>() {
+               @Override
+               public void onSuccess(Void aVoid) {
+                   Toast.makeText(QuestionView.this, "Pregunta" +
+                           "creada correctamente", Toast.LENGTH_SHORT).show();
+                   setResult(RESULT_OK);
+                   finish();
+               }
+           }).addOnFailureListener(new OnFailureListener() {
+               @Override
+               public void onFailure(@NonNull Exception e) {
+               }
+           });
 
         }
     }

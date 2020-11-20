@@ -4,6 +4,7 @@ public class Pregunta {
     private String preguntaID;
     private String textoPregunta;
     private String tipoPregunta;
+    private String listaRespuesta;
     private String respuesta;
 
     public Pregunta() {
@@ -47,4 +48,17 @@ public class Pregunta {
     public void setRespuesta(String respuesta) {
         this.respuesta = respuesta;
     }
+
+    public String getListaRespuesta() {
+        return listaRespuesta;
+    }
+
+    public void setListaRespuesta(String listaRespuesta) {
+        this.listaRespuesta = listaRespuesta;
+    }
+
+    public int compareTo(Pregunta other) {
+        return preguntaID.compareTo(other.preguntaID);
+    }
+
 }
