@@ -28,4 +28,10 @@
         android:name="com.example.encuestasmexicoandroid.ui.resultados.ResultadosFragment"
         android:label="@string/menu_Resultados"
         tools:layout="@layout/fragment_resultados" />
+
+    <fragment
+        android:id="@+id/nav_logout"
+        android:name="com.example.encuestasmexicoandroid.ui.logout.LogOut"
+        android:label="                 Logout"
+        tools:layout="@layout/fragment_log_out" />
 </navigation>
