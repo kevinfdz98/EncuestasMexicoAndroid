@@ -1,0 +1,629 @@
+Index: app/src/main/java/com/example/encuestasmexicoandroid/Adapters/ListasAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.encuestasmexicoandroid.Adapters;\r\n\r\nimport android.content.Context;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\nimport android.widget.TextView;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\nimport com.example.encuestasmexicoandroid.Classes.Listas;\r\nimport com.example.encuestasmexicoandroid.R;\r\nimport com.firebase.ui.auth.data.model.User;\r\n\r\nimport java.util.List;\r\n\r\npublic class ListasAdapter extends RecyclerView.Adapter<ListasAdapter.ListasHolder> {\r\n    private Context mContext;\r\n    private List<Listas> mListasList;\r\n    private onRecyclerClickListener mOnRecyclerClickListener;\r\n\r\n    public ListasAdapter(Context context, List<Listas> listasList, onRecyclerClickListener onRecyclerClickListener){\r\n        mContext = context;\r\n        mListasList = listasList;\r\n        mOnRecyclerClickListener = onRecyclerClickListener;\r\n    }\r\n\r\n    @NonNull\r\n    @Override\r\n    public ListasAdapter.ListasHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {\r\n        View view = LayoutInflater.from(mContext).inflate(R.layout.listas_item, parent, false);\r\n        return new ListasHolder(view, mOnRecyclerClickListener);\r\n    }\r\n\r\n    @Override\r\n    public void onBindViewHolder(@NonNull ListasAdapter.ListasHolder holder, int position) {\r\n        Listas currentItem = mListasList.get(position);\r\n        // Asignar valor correspondiente de cada elemento\r\n\r\n        String nombre = currentItem.getNombre();\r\n\r\n        holder.mNombre.setText(nombre);\r\n\r\n    }\r\n\r\n    @Override\r\n    public int getItemCount() {\r\n        return mListasList.size();\r\n    }\r\n\r\n    public class ListasHolder extends RecyclerView.ViewHolder implements View.OnClickListener{\r\n        public TextView mNombre;\r\n        onRecyclerClickListener onRecyclerClickListener;\r\n\r\n        public ListasHolder(@NonNull View itemView, onRecyclerClickListener onRecyclerClickListener) {\r\n            super(itemView);\r\n            mNombre = itemView.findViewById(R.id.textViewNombre);\r\n\r\n            this.onRecyclerClickListener = onRecyclerClickListener;\r\n            itemView.setOnClickListener(this);\r\n        }\r\n\r\n        @Override\r\n        public void onClick(View view) {\r\n            onRecyclerClickListener.onUserClick(getAdapterPosition());\r\n        }\r\n    }\r\n\r\n    public interface onRecyclerClickListener{\r\n        void onUserClick(int position);\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/encuestasmexicoandroid/Adapters/ListasAdapter.java	(revision 6cb6de1571408819b20e589edd7f551b5e46165d)
++++ app/src/main/java/com/example/encuestasmexicoandroid/Adapters/ListasAdapter.java	(date 1605868551010)
+@@ -12,6 +12,8 @@
+ import com.example.encuestasmexicoandroid.Classes.Listas;
+ import com.example.encuestasmexicoandroid.R;
+ import com.firebase.ui.auth.data.model.User;
++import com.google.firebase.firestore.DocumentReference;
++import com.google.firebase.firestore.FirebaseFirestore;
+ 
+ import java.util.List;
+ 
+@@ -33,6 +35,11 @@
+         return new ListasHolder(view, mOnRecyclerClickListener);
+     }
+ 
++    public void deleteItem(int position) {
++        FirebaseFirestore db = FirebaseFirestore.getInstance();
++        db.collection("Listas").document(mListasList.get(position).getDocumentID()).delete();
++    }
++
+     @Override
+     public void onBindViewHolder(@NonNull ListasAdapter.ListasHolder holder, int position) {
+         Listas currentItem = mListasList.get(position);
+Index: app/src/main/res/layout/pregunta_item_2.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/pregunta_item_2.xml	(date 1605869455272)
++++ app/src/main/res/layout/pregunta_item_2.xml	(date 1605869455272)
+@@ -0,0 +1,30 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    android:layout_width="match_parent"
++    android:layout_height="wrap_content"
++    android:layout_marginLeft="8dp"
++    android:layout_marginTop="4dp"
++    android:layout_marginRight="8dp"
++    android:layout_marginBottom="4dp"
++    android:clickable="true"
++    android:focusable="true"
++    app:cardCornerRadius="4dp">
++
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:orientation="horizontal">
++
++        <TextView
++            android:id="@+id/pregunta_text"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:maxLines="3"
++            android:text="¿Qué candidato genera más confianza?"
++            android:textColor="@android:color/black"
++            android:textSize="18sp" />
++
++    </LinearLayout>
++
++</androidx.cardview.widget.CardView>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_mostrar_preguntas.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_mostrar_preguntas.xml	(date 1605871224199)
++++ app/src/main/res/layout/activity_mostrar_preguntas.xml	(date 1605871224199)
+@@ -0,0 +1,32 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".ActivityMostrarPreguntas">
++
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        android:orientation="vertical"
++        tools:layout_editor_absoluteX="107dp"
++        tools:layout_editor_absoluteY="35dp">
++
++        <TextView
++            android:id="@+id/textView5"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:text="Preguntas"
++            android:textAlignment="center"
++            android:textAllCaps="false"
++            android:textColor="@android:color/black"
++            android:textSize="24sp"
++            android:textStyle="bold" />
++
++        <androidx.recyclerview.widget.RecyclerView
++            android:id="@+id/recycler_view_preguntas"
++            android:layout_width="match_parent"
++            android:layout_height="match_parent" />
++    </LinearLayout>
++</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/encuestasmexicoandroid/ui/slideshow/SlideshowFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.encuestasmexicoandroid.ui.slideshow;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.util.Log;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.annotation.Nullable;\r\nimport androidx.fragment.app.Fragment;\r\nimport androidx.recyclerview.widget.LinearLayoutManager;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\nimport com.example.encuestasmexicoandroid.Adapters.ListasAdapter;\r\nimport com.example.encuestasmexicoandroid.AddNuevaLista;\r\nimport com.example.encuestasmexicoandroid.Classes.Listas;\r\nimport com.example.encuestasmexicoandroid.EditLista;\r\nimport com.example.encuestasmexicoandroid.R;\r\nimport com.google.android.gms.tasks.OnCompleteListener;\r\nimport com.google.android.gms.tasks.Task;\r\nimport com.google.android.material.floatingactionbutton.FloatingActionButton;\r\nimport com.google.firebase.firestore.CollectionReference;\r\nimport com.google.firebase.firestore.FirebaseFirestore;\r\nimport com.google.firebase.firestore.QueryDocumentSnapshot;\r\nimport com.google.firebase.firestore.QuerySnapshot;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\npublic class SlideshowFragment extends Fragment implements ListasAdapter.onRecyclerClickListener{\r\n\r\n    private FirebaseFirestore db = FirebaseFirestore.getInstance();\r\n    private CollectionReference listasRef = db.collection(\"Listas\");\r\n\r\n    private RecyclerView recyclerView;\r\n    private ListasAdapter listasAdapter;\r\n    private List<Listas> mListasList;\r\n\r\n    FloatingActionButton mButtonAgregarListas;\r\n\r\n    public View onCreateView(@NonNull LayoutInflater inflater,\r\n                             ViewGroup container, Bundle savedInstanceState) {\r\n\r\n        View root = inflater.inflate(R.layout.fragment_slideshow, container, false);\r\n\r\n        recyclerView = root.findViewById(R.id.recycler_view_listas);\r\n        recyclerView.setHasFixedSize(true);\r\n        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));\r\n\r\n        mListasList = new ArrayList<>();\r\n\r\n        displayListas();\r\n\r\n        mButtonAgregarListas = root.findViewById(R.id.button_add_listas);\r\n\r\n        mButtonAgregarListas.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View view) {\r\n                AddNuevaLista();\r\n            }\r\n        });\r\n        return root;\r\n    }\r\n\r\n    void AddNuevaLista() {\r\n        Intent intent = new Intent(getActivity(), AddNuevaLista.class);\r\n        startActivityForResult(intent, 1);\r\n    }\r\n\r\n    void displayListas() {\r\n        Task<QuerySnapshot> query;\r\n        query = listasRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {\r\n            @Override\r\n            public void onComplete(@NonNull Task<QuerySnapshot> task) {\r\n                if (task.isSuccessful()) {\r\n                    mListasList.clear();\r\n                    for (QueryDocumentSnapshot document : task.getResult()) {\r\n                        Listas listas = document.toObject(Listas.class);\r\n                        listas.setDocumentID(document.getId());\r\n\r\n                        mListasList.add(listas);\r\n                    }\r\n                    initAdapterRecycler();\r\n                } else {\r\n                    Log.d(\"NO\", \"Error getting documents: \", task.getException());\r\n                }\r\n            }\r\n        });\r\n    }\r\n\r\n    private void initAdapterRecycler(){\r\n        listasAdapter = new ListasAdapter(getContext(), mListasList, this);\r\n        recyclerView.setAdapter(listasAdapter);\r\n    }\r\n\r\n    @Override\r\n    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {\r\n        super.onActivityResult(requestCode, resultCode, data);\r\n        if(requestCode == 1){\r\n            displayListas();\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public void onUserClick(int position) {\r\n        Listas listas1 = mListasList.get(position);\r\n\r\n        Intent intent = new Intent(getActivity(), EditLista.class);\r\n        intent.putExtra(\"Listas\", listas1);\r\n        startActivityForResult(intent, 1);\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/encuestasmexicoandroid/ui/slideshow/SlideshowFragment.java	(revision 6cb6de1571408819b20e589edd7f551b5e46165d)
++++ app/src/main/java/com/example/encuestasmexicoandroid/ui/slideshow/SlideshowFragment.java	(date 1605868922857)
+@@ -10,6 +10,7 @@
+ import androidx.annotation.NonNull;
+ import androidx.annotation.Nullable;
+ import androidx.fragment.app.Fragment;
++import androidx.recyclerview.widget.ItemTouchHelper;
+ import androidx.recyclerview.widget.LinearLayoutManager;
+ import androidx.recyclerview.widget.RecyclerView;
+ 
+@@ -93,6 +94,20 @@
+     private void initAdapterRecycler(){
+         listasAdapter = new ListasAdapter(getContext(), mListasList, this);
+         recyclerView.setAdapter(listasAdapter);
++
++        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
++                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
++            @Override
++            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
++                return false;
++            }
++
++            @Override
++            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
++                listasAdapter.deleteItem(viewHolder.getAdapterPosition());
++                displayListas();
++            }
++        }).attachToRecyclerView(recyclerView);
+     }
+ 
+     @Override
+Index: app/src/main/res/layout/form_item_2.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/form_item_2.xml	(date 1605869915578)
++++ app/src/main/res/layout/form_item_2.xml	(date 1605869915578)
+@@ -0,0 +1,20 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.cardview.widget.CardView
++    xmlns:android="http://schemas.android.com/apk/res/android"
++    android:layout_width="match_parent"
++    android:layout_height="wrap_content"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    app:cardCornerRadius="8dp"
++    android:clickable="true"
++    android:layout_margin="8dp"
++    android:focusable="true">
++
++    <TextView
++        android:id="@+id/text_view_form_name_2"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_margin="10dp"
++        android:text="Elecciones 2020"
++        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
++
++</androidx.cardview.widget.CardView>
+\ No newline at end of file
+Index: app/src/main/java/com/example/encuestasmexicoandroid/FormPreguntas.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.encuestasmexicoandroid;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.annotation.Nullable;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.recyclerview.widget.LinearLayoutManager;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.util.Log;\r\nimport android.view.View;\r\nimport android.widget.Button;\r\n\r\nimport com.example.encuestasmexicoandroid.Adapters.PreguntaAdapter;\r\nimport com.example.encuestasmexicoandroid.Classes.Pregunta;\r\nimport com.google.android.gms.tasks.OnCompleteListener;\r\nimport com.google.android.gms.tasks.Task;\r\nimport com.google.android.material.floatingactionbutton.FloatingActionButton;\r\nimport com.google.firebase.firestore.CollectionReference;\r\nimport com.google.firebase.firestore.DocumentReference;\r\nimport com.google.firebase.firestore.DocumentSnapshot;\r\nimport com.google.firebase.firestore.FirebaseFirestore;\r\nimport com.google.firebase.firestore.QueryDocumentSnapshot;\r\nimport com.google.firebase.firestore.QuerySnapshot;\r\nimport com.google.firebase.firestore.Source;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.Collections;\r\nimport java.util.Comparator;\r\nimport java.util.List;\r\nimport java.util.Map;\r\n\r\npublic class FormPreguntas extends AppCompatActivity implements PreguntaAdapter.onRecyclerClickListener{\r\n    // Variable of firestore to access data from firebase\r\n    private final FirebaseFirestore db = FirebaseFirestore.getInstance();\r\n    // Reference to User data on firebase\r\n    private final CollectionReference formRef = db.collection(\"Formularios\");\r\n\r\n    private RecyclerView recyclerView;\r\n    private PreguntaAdapter preguntaAdapter;\r\n    private List<Pregunta> preguntaList;\r\n    private String TAG = \"display\";\r\n    private String formID;\r\n    private int NumberofQuestions = 0;\r\n    private DocumentReference documentReference ;\r\n    FloatingActionButton questionEdit;\r\n    FloatingActionButton finish;\r\n\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_form_preguntas);\r\n        recyclerView = findViewById(R.id.recycler_view_preguntas);\r\n        recyclerView.setHasFixedSize(true);\r\n        recyclerView.setLayoutManager(new LinearLayoutManager(this));\r\n        preguntaList = new ArrayList<>();\r\n        Intent intent = getIntent();\r\n        formID = intent.getStringExtra(\"formID\");\r\n        documentReference = formRef.document(formID);\r\n        displayQuestions(documentReference);\r\n        questionEdit = findViewById(R.id.button_add_new_pregunta);\r\n        finish = findViewById(R.id.button_finish);\r\n        questionEdit.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View view) {\r\n                Intent intent1 = new Intent(getApplication(), QuestionView.class);\r\n                intent1.putExtra(\"formID\", formID);\r\n                intent1.putExtra(\"numberQuestions\", NumberofQuestions);\r\n                startActivityForResult(intent1, 101);\r\n            }\r\n        });\r\n        finish.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View view) {\r\n                Intent i = new Intent(FormPreguntas.this, MainActivity.class);        // Specify any activity here e.g. home or splash or login etc\r\n                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);\r\n                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);\r\n                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);\r\n                i.putExtra(\"EXIT\", true);\r\n                startActivity(i);\r\n                finish();\r\n            }\r\n        });\r\n\r\n\r\n    }\r\n\r\n    public void displayQuestions(DocumentReference documentReference){\r\n        preguntaList.clear();\r\n        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {\r\n            @Override\r\n            public void onComplete(@NonNull Task<DocumentSnapshot> task) {\r\n                if (task.isSuccessful()) {\r\n                    DocumentSnapshot document = task.getResult();\r\n                    if (document.exists()) {\r\n                        Map<String,Object> auxMap = (Map<String, Object>) document.get(\"preguntas\");\r\n                        NumberofQuestions =  auxMap.size();\r\n                        Map<String,String> auxQuestion;\r\n                        for (Map.Entry<String, Object> entry : auxMap.entrySet()){\r\n                            auxQuestion = (Map<String, String>) entry.getValue();\r\n                            String textoPregunta = auxQuestion.get(\"textoPregunta\");\r\n                            String tipoPregunta = auxQuestion.get(\"tipoPregunta\");\r\n                            if (tipoPregunta.equals(\"Opcion Múltiple\")){\r\n                                String respuestas = auxQuestion.get(\"respuestas\");\r\n                                Pregunta pregunta =  new Pregunta(entry.getKey(),textoPregunta,tipoPregunta);\r\n                                pregunta.setRespuesta(respuestas);\r\n                                preguntaList.add(pregunta);\r\n                            }else{\r\n                                preguntaList.add(new Pregunta(entry.getKey(),textoPregunta,tipoPregunta));\r\n                            }\r\n                        }\r\n                       Collections.sort(preguntaList, new Comparator<Pregunta>() {\r\n                            @Override\r\n                            public int compare(Pregunta pregunta, Pregunta t1) {\r\n                                return pregunta.getPreguntaID().compareTo(t1.getPreguntaID());\r\n                            }\r\n                        });\r\n                        initAdapaterRecycler();\r\n                    } else {\r\n                        Log.d(TAG, \"No such document\");\r\n                    }\r\n                } else {\r\n                    Log.d(TAG, \"get failed with \", task.getException());\r\n                }\r\n            }\r\n        });\r\n    }\r\n\r\n    @Override\r\n    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {\r\n        super.onActivityResult(requestCode, resultCode, data);\r\n\r\n            displayQuestions(documentReference);\r\n\r\n    }\r\n\r\n    public void  initAdapaterRecycler(){\r\n        preguntaAdapter = new PreguntaAdapter(this,preguntaList, this);\r\n        recyclerView.setAdapter(preguntaAdapter);\r\n    }\r\n\r\n    @Override\r\n    public void onPreguntaClick(int position) {\r\n        String textoPregunta;\r\n        Intent intent1 = new Intent(getApplication(), QuestionView.class);\r\n        Pregunta preguntaEditar = preguntaList.get(position);\r\n        intent1.putExtra(\"editFlag\", true);\r\n        intent1.putExtra(\"textoPregunta\", preguntaEditar.getTextoPregunta());\r\n        intent1.putExtra(\"tipoPregunta\", preguntaEditar.getTipoPregunta());\r\n        if(preguntaEditar.getTipoPregunta().matches(\"Opción Múltiple\")){intent1\r\n        .putExtra(\"listaRespuesta\",preguntaEditar.getListaRespuesta());}\r\n        intent1.putExtra(\"formID\", formID);\r\n        intent1.putExtra(\"numberQuestions\", NumberofQuestions);\r\n        startActivityForResult(intent1, 102);\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/encuestasmexicoandroid/FormPreguntas.java	(revision 6cb6de1571408819b20e589edd7f551b5e46165d)
++++ app/src/main/java/com/example/encuestasmexicoandroid/FormPreguntas.java	(date 1605871224190)
+@@ -10,7 +10,6 @@
+ import android.os.Bundle;
+ import android.util.Log;
+ import android.view.View;
+-import android.widget.Button;
+ 
+ import com.example.encuestasmexicoandroid.Adapters.PreguntaAdapter;
+ import com.example.encuestasmexicoandroid.Classes.Pregunta;
+@@ -21,9 +20,6 @@
+ import com.google.firebase.firestore.DocumentReference;
+ import com.google.firebase.firestore.DocumentSnapshot;
+ import com.google.firebase.firestore.FirebaseFirestore;
+-import com.google.firebase.firestore.QueryDocumentSnapshot;
+-import com.google.firebase.firestore.QuerySnapshot;
+-import com.google.firebase.firestore.Source;
+ 
+ import java.util.ArrayList;
+ import java.util.Collections;
+Index: app/src/main/java/com/example/encuestasmexicoandroid/ActivityMostrarPreguntas.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/encuestasmexicoandroid/ActivityMostrarPreguntas.java	(date 1605871224195)
++++ app/src/main/java/com/example/encuestasmexicoandroid/ActivityMostrarPreguntas.java	(date 1605871224195)
+@@ -0,0 +1,126 @@
++package com.example.encuestasmexicoandroid;
++
++import androidx.annotation.NonNull;
++import androidx.annotation.Nullable;
++import androidx.appcompat.app.AppCompatActivity;
++import androidx.recyclerview.widget.LinearLayoutManager;
++import androidx.recyclerview.widget.RecyclerView;
++
++import android.content.Intent;
++import android.os.Bundle;
++import android.util.Log;
++
++import com.example.encuestasmexicoandroid.Adapters.MostrarPreguntasAdapter;
++import com.example.encuestasmexicoandroid.Classes.Pregunta;
++import com.google.android.gms.tasks.OnCompleteListener;
++import com.google.android.gms.tasks.Task;
++import com.google.firebase.firestore.CollectionReference;
++import com.google.firebase.firestore.DocumentReference;
++import com.google.firebase.firestore.DocumentSnapshot;
++import com.google.firebase.firestore.FirebaseFirestore;
++
++import java.util.ArrayList;
++import java.util.Collections;
++import java.util.Comparator;
++import java.util.List;
++import java.util.Map;
++
++public class ActivityMostrarPreguntas extends AppCompatActivity implements MostrarPreguntasAdapter.onRecyclerClickListener{
++
++    // Variable of firestore to access data from firebase
++    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
++    // Reference to User data on firebase
++    private final CollectionReference formRef = db.collection("Formularios");
++
++    private RecyclerView recyclerView;
++    private MostrarPreguntasAdapter mostrarPreguntasAdapter;
++    private List<Pregunta> preguntaList;
++    private String TAG = "display";
++    private String formID;
++    private int NumberofQuestions = 0;
++    private DocumentReference documentReference ;
++
++    @Override
++    protected void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout.activity_mostrar_preguntas);
++        recyclerView = findViewById(R.id.recycler_view_preguntas);
++        recyclerView.setHasFixedSize(true);
++        recyclerView.setLayoutManager(new LinearLayoutManager(this));
++        preguntaList = new ArrayList<>();
++        Intent intent = getIntent();
++        formID = intent.getStringExtra("formID");
++        documentReference = formRef.document(formID);
++        displayQuestions(documentReference);
++
++    }
++
++    public void displayQuestions(DocumentReference documentReference){
++        preguntaList.clear();
++        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
++            @Override
++            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
++                if (task.isSuccessful()) {
++                    DocumentSnapshot document = task.getResult();
++                    if (document.exists()) {
++                        Map<String,Object> auxMap = (Map<String, Object>) document.get("preguntas");
++                        NumberofQuestions =  auxMap.size();
++                        Map<String,String> auxQuestion;
++                        for (Map.Entry<String, Object> entry : auxMap.entrySet()){
++                            auxQuestion = (Map<String, String>) entry.getValue();
++                            String textoPregunta = auxQuestion.get("textoPregunta");
++                            String tipoPregunta = auxQuestion.get("tipoPregunta");
++                            if (tipoPregunta.equals("Opcion Múltiple")){
++                                String respuestas = auxQuestion.get("respuestas");
++                                Pregunta pregunta =  new Pregunta(entry.getKey(),textoPregunta,tipoPregunta);
++                                pregunta.setRespuesta(respuestas);
++                                preguntaList.add(pregunta);
++                            }else{
++                                preguntaList.add(new Pregunta(entry.getKey(),textoPregunta,tipoPregunta));
++                            }
++                        }
++                        Collections.sort(preguntaList, new Comparator<Pregunta>() {
++                            @Override
++                            public int compare(Pregunta pregunta, Pregunta t1) {
++                                return pregunta.getPreguntaID().compareTo(t1.getPreguntaID());
++                            }
++                        });
++                        initAdapaterRecycler();
++                    } else {
++                        Log.d(TAG, "No such document");
++                    }
++                } else {
++                    Log.d(TAG, "get failed with ", task.getException());
++                }
++            }
++        });
++    }
++
++    @Override
++    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
++        super.onActivityResult(requestCode, resultCode, data);
++
++        displayQuestions(documentReference);
++
++    }
++
++    public void  initAdapaterRecycler(){
++        mostrarPreguntasAdapter = new MostrarPreguntasAdapter(this, preguntaList, this);
++        recyclerView.setAdapter(mostrarPreguntasAdapter);
++    }
++
++    @Override
++    public void onPreguntaClick(int position) {
++        String textoPregunta;
++        Intent intent1 = new Intent(getApplication(), QuestionView.class);
++        Pregunta preguntaEditar = preguntaList.get(position);
++        intent1.putExtra("editFlag", true);
++        intent1.putExtra("textoPregunta", preguntaEditar.getTextoPregunta());
++        intent1.putExtra("tipoPregunta", preguntaEditar.getTipoPregunta());
++        if(preguntaEditar.getTipoPregunta().matches("Opción Múltiple")){intent1
++                .putExtra("listaRespuesta",preguntaEditar.getListaRespuesta());}
++        intent1.putExtra("formID", formID);
++        intent1.putExtra("numberQuestions", NumberofQuestions);
++        startActivityForResult(intent1, 102);
++    }
++}
+\ No newline at end of file
+Index: app/src/main/java/com/example/encuestasmexicoandroid/Adapters/MostrarPreguntasAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/encuestasmexicoandroid/Adapters/MostrarPreguntasAdapter.java	(date 1605868055901)
++++ app/src/main/java/com/example/encuestasmexicoandroid/Adapters/MostrarPreguntasAdapter.java	(date 1605868055901)
+@@ -0,0 +1,70 @@
++package com.example.encuestasmexicoandroid.Adapters;
++
++import android.content.Context;
++import android.view.LayoutInflater;
++import android.view.View;
++import android.view.ViewGroup;
++import android.widget.TextView;
++
++import androidx.annotation.NonNull;
++import androidx.recyclerview.widget.RecyclerView;
++
++import com.example.encuestasmexicoandroid.Classes.Pregunta;
++import com.example.encuestasmexicoandroid.R;
++
++import java.util.List;
++
++public class MostrarPreguntasAdapter extends RecyclerView.Adapter<MostrarPreguntasAdapter.mostrarPreguntasHolder> {
++
++    private Context mContext;
++    private List<Pregunta> mPreguntaList;
++    private onRecyclerClickListener mOnRecyclerListener;
++
++    public MostrarPreguntasAdapter(Context context, List<Pregunta> preguntas, onRecyclerClickListener onRecyclerCLickListener) {
++        mContext = context;
++        mPreguntaList = preguntas;
++        mOnRecyclerListener = onRecyclerCLickListener;
++    }
++
++    @NonNull
++    @Override
++    public mostrarPreguntasHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
++        View view = LayoutInflater.from(mContext)
++                .inflate(R.layout.pregunta_item_2, parent, false);
++        return new mostrarPreguntasHolder(view, mOnRecyclerListener);
++    }
++
++    @Override
++    public void onBindViewHolder(@NonNull mostrarPreguntasHolder holder, int position) {
++        Pregunta pregunta = mPreguntaList.get(position);
++        String preguntaTexto = pregunta.getTextoPregunta();
++
++        holder.pregunta_texto.setText(preguntaTexto);
++    }
++
++    @Override
++    public int getItemCount() {
++        return  mPreguntaList.size();
++    }
++
++    public class mostrarPreguntasHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
++        public TextView pregunta_texto;
++        onRecyclerClickListener onRecyclerClickListener;
++
++        public mostrarPreguntasHolder(@NonNull View itemview, onRecyclerClickListener onRecyclerClickListener) {
++            super(itemview);
++            pregunta_texto = itemview.findViewById(R.id.pregunta_text);
++            this.onRecyclerClickListener = onRecyclerClickListener;
++            itemview.setOnClickListener(this);
++        }
++
++        @Override
++        public void onClick(View view) {
++            onRecyclerClickListener.onPreguntaClick(getAdapterPosition());
++        }
++    }
++
++    public interface onRecyclerClickListener {
++        void onPreguntaClick(int position);
++    }
++}
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    package=\"com.example.encuestasmexicoandroid\">\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/AppTheme\">\r\n        <activity android:name=\".EditLista\"></activity>\r\n        <activity android:name=\".AddNuevaLista\" />\r\n        <activity android:name=\".QuestionView\" />\r\n        <activity android:name=\".FormPreguntas\" />\r\n        <activity android:name=\".FormGeneral\" />\r\n        <activity android:name=\".EncuestadorMain\" />\r\n        <activity android:name=\".Login\" >\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n        <activity\r\n            android:name=\".ActivityAddUser\"\r\n            android:parentActivityName=\".MainActivity\" />\r\n        <activity\r\n            android:name=\".MainActivity\"\r\n            android:label=\"@string/app_name\"\r\n            android:theme=\"@style/AppTheme.NoActionBar\">\r\n\r\n        </activity>\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision 6cb6de1571408819b20e589edd7f551b5e46165d)
++++ app/src/main/AndroidManifest.xml	(date 1605832775784)
+@@ -9,13 +9,14 @@
+         android:roundIcon="@mipmap/ic_launcher_round"
+         android:supportsRtl="true"
+         android:theme="@style/AppTheme">
+-        <activity android:name=".EditLista"></activity>
++        <activity android:name=".ActivityMostrarPreguntas"></activity>
++        <activity android:name=".EditLista" />
+         <activity android:name=".AddNuevaLista" />
+         <activity android:name=".QuestionView" />
+         <activity android:name=".FormPreguntas" />
+         <activity android:name=".FormGeneral" />
+         <activity android:name=".EncuestadorMain" />
+-        <activity android:name=".Login" >
++        <activity android:name=".Login">
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+ 
+@@ -28,9 +29,7 @@
+         <activity
+             android:name=".MainActivity"
+             android:label="@string/app_name"
+-            android:theme="@style/AppTheme.NoActionBar">
+-
+-        </activity>
++            android:theme="@style/AppTheme.NoActionBar"></activity>
+     </application>
+ 
+ </manifest>
+\ No newline at end of file
+Index: app/src/main/java/com/example/encuestasmexicoandroid/EncuestadorMain.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.encuestasmexicoandroid;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.recyclerview.widget.LinearLayoutManager;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\nimport android.os.Bundle;\r\nimport android.util.Log;\r\n\r\nimport com.example.encuestasmexicoandroid.Adapters.FormAdapter;\r\nimport com.example.encuestasmexicoandroid.Classes.FormList;\r\nimport com.google.android.gms.tasks.OnCompleteListener;\r\nimport com.google.android.gms.tasks.Task;\r\nimport com.google.firebase.firestore.CollectionReference;\r\nimport com.google.firebase.firestore.FirebaseFirestore;\r\nimport com.google.firebase.firestore.QueryDocumentSnapshot;\r\nimport com.google.firebase.firestore.QuerySnapshot;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\npublic class EncuestadorMain extends AppCompatActivity implements FormAdapter.onRecyclerClickListener {\r\n    // Variable of firestore to access data from firebase\r\n    private final FirebaseFirestore db = FirebaseFirestore.getInstance();\r\n    // Reference to User data on firebase\r\n    private final CollectionReference formRef = db.collection(\"Formularios\");\r\n\r\n    //Variables used to implement the recycler view\r\n    private RecyclerView recyclerViewForm;\r\n    private FormAdapter formAdapter;\r\n    private List<FormList> formularioList;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_encuestador_main);\r\n        recyclerViewForm = findViewById(R.id.recycler_view_forms_encuestador);\r\n        recyclerViewForm.setHasFixedSize(true);\r\n        recyclerViewForm.setLayoutManager(new LinearLayoutManager(this));\r\n        formularioList = new ArrayList<>();\r\n        displayForms();\r\n    }\r\n\r\n    private void displayForms() {\r\n        Task<QuerySnapshot> query;\r\n        query = formRef.whereEqualTo(\"estatus\",\"Activo\").get()\r\n                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {\r\n                    @Override\r\n                    public void onComplete(@NonNull Task<QuerySnapshot> task) {\r\n                        if (task.isSuccessful()){\r\n                            formularioList.clear();\r\n                            for(QueryDocumentSnapshot document : task.getResult()){\r\n                                String id = document.getId();\r\n                                String nombre = (String)document.get(\"nombre\");\r\n                                String inicio = (String)document.get(\"inicio\");\r\n                                String fin = (String)document.get(\"fin\");\r\n                                String estatus = (String)document.get(\"estatus\");\r\n                                formularioList.add(new FormList(id,nombre,inicio,fin,estatus));\r\n                            }\r\n                            initAdapterRecycler();\r\n                        }else{\r\n                            Log.d(\"NO\", \"Error getting documents: \", task.getException());\r\n                        }\r\n                    }\r\n                });\r\n    }\r\n    private void initAdapterRecycler(){\r\n        formAdapter = new FormAdapter(this, formularioList, this);\r\n        recyclerViewForm.setAdapter(formAdapter);\r\n    }\r\n\r\n    @Override\r\n    public void onFormClick(int position) {\r\n\r\n\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/encuestasmexicoandroid/EncuestadorMain.java	(revision 6cb6de1571408819b20e589edd7f551b5e46165d)
++++ app/src/main/java/com/example/encuestasmexicoandroid/EncuestadorMain.java	(date 1605871504396)
+@@ -5,10 +5,12 @@
+ import androidx.recyclerview.widget.LinearLayoutManager;
+ import androidx.recyclerview.widget.RecyclerView;
+ 
++import android.content.Intent;
+ import android.os.Bundle;
+ import android.util.Log;
++import android.widget.Toast;
+ 
+-import com.example.encuestasmexicoandroid.Adapters.FormAdapter;
++import com.example.encuestasmexicoandroid.Adapters.FormAdapter2;
+ import com.example.encuestasmexicoandroid.Classes.FormList;
+ import com.google.android.gms.tasks.OnCompleteListener;
+ import com.google.android.gms.tasks.Task;
+@@ -20,7 +22,7 @@
+ import java.util.ArrayList;
+ import java.util.List;
+ 
+-public class EncuestadorMain extends AppCompatActivity implements FormAdapter.onRecyclerClickListener {
++public class EncuestadorMain extends AppCompatActivity implements FormAdapter2.onRecyclerClickListener {
+     // Variable of firestore to access data from firebase
+     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+     // Reference to User data on firebase
+@@ -28,7 +30,7 @@
+ 
+     //Variables used to implement the recycler view
+     private RecyclerView recyclerViewForm;
+-    private FormAdapter formAdapter;
++    private FormAdapter2 formAdapter2;
+     private List<FormList> formularioList;
+ 
+     @Override
+@@ -41,6 +43,12 @@
+         formularioList = new ArrayList<>();
+         displayForms();
+     }
++
++    @Override
++    protected void onStart() {
++        super.onStart();
++        displayForms();
++    }
+ 
+     private void displayForms() {
+         Task<QuerySnapshot> query;
+@@ -66,13 +74,15 @@
+                 });
+     }
+     private void initAdapterRecycler(){
+-        formAdapter = new FormAdapter(this, formularioList, this);
+-        recyclerViewForm.setAdapter(formAdapter);
++        formAdapter2 = new FormAdapter2(this, formularioList, this);
++        recyclerViewForm.setAdapter(formAdapter2);
+     }
+ 
+     @Override
+     public void onFormClick(int position) {
+ 
+-
++        Intent intent = new Intent(this, ActivityMostrarPreguntas.class);
++        intent.putExtra("formID", formularioList.get(position).getFormID());
++        startActivityForResult(intent, 1);
+     }
+ }
+\ No newline at end of file
+Index: app/src/main/java/com/example/encuestasmexicoandroid/Adapters/FormAdapter2.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/encuestasmexicoandroid/Adapters/FormAdapter2.java	(date 1605870581628)
++++ app/src/main/java/com/example/encuestasmexicoandroid/Adapters/FormAdapter2.java	(date 1605870581628)
+@@ -0,0 +1,73 @@
++package com.example.encuestasmexicoandroid.Adapters;
++
++import android.content.Context;
++import android.view.LayoutInflater;
++import android.view.View;
++import android.view.ViewGroup;
++import android.widget.TextView;
++
++import androidx.annotation.NonNull;
++import androidx.recyclerview.widget.RecyclerView;
++
++import com.example.encuestasmexicoandroid.Classes.FormList;
++import com.example.encuestasmexicoandroid.R;
++
++import java.util.List;
++
++public class FormAdapter2 extends RecyclerView.Adapter<FormAdapter2.FormHolder2>{
++    private Context mContext;
++    private List<FormList> mFormularioList;
++    private FormAdapter2.onRecyclerClickListener mOnRecyclerClickListener;
++
++    public FormAdapter2(Context context, List<FormList> formularioList, FormAdapter2.onRecyclerClickListener onRecyclerClickListener){
++        mContext = context;
++        mFormularioList = formularioList;
++        mOnRecyclerClickListener = onRecyclerClickListener;
++    }
++
++    @NonNull
++    @Override
++    public FormAdapter2.FormHolder2 onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
++        View view = LayoutInflater.from(mContext)
++                .inflate(R.layout.form_item_2, parent, false);
++        return new FormAdapter2.FormHolder2(view, mOnRecyclerClickListener);
++    }
++
++    @Override
++    public void onBindViewHolder(@NonNull FormAdapter2.FormHolder2 holder, int position) {
++        FormList currentForm = mFormularioList.get(position);
++        //Asignar valor correspondiente de cada formulario
++        String formName = currentForm.getNombreFormulario();
++
++        holder.form_name.setText(formName);
++    }
++
++    @Override
++    public int getItemCount() {
++        return mFormularioList.size();
++    }
++
++    public class FormHolder2 extends RecyclerView.ViewHolder implements View.OnClickListener {
++        public TextView form_name;
++
++        FormAdapter2.onRecyclerClickListener onRecyclerClickListener;
++
++        public FormHolder2(@NonNull View itemView, FormAdapter2.onRecyclerClickListener onRecyclerClickListener) {
++            super(itemView);
++            form_name = itemView.findViewById(R.id.text_view_form_name_2);
++
++            this.onRecyclerClickListener = onRecyclerClickListener;
++            itemView.setOnClickListener(this);
++
++        }
++
++        @Override
++        public void onClick(View view) {
++            onRecyclerClickListener.onFormClick(getAdapterPosition());
++        }
++    }
++
++    public interface onRecyclerClickListener{
++        void onFormClick(int position);
++    }
++}
+Index: app/src/main/java/com/example/encuestasmexicoandroid/Classes/FormList.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.encuestasmexicoandroid.Classes;\r\n\r\npublic class FormList {\r\n    private String formID;\r\n    private String nombreFormulario;\r\n    private String fechaInicio;\r\n    private String fechaFin;\r\n    private String estatus;\r\n\r\n    public FormList(String formID, String nombreFormulario, String fechaInicio, String fechaFin, String estatus) {\r\n        this.formID = formID;\r\n        this.nombreFormulario = nombreFormulario;\r\n        this.fechaInicio = fechaInicio;\r\n        this.fechaFin = fechaFin;\r\n        this.estatus = estatus;\r\n\r\n    }\r\n\r\n    public String getEstatus() {\r\n        return estatus;\r\n    }\r\n\r\n    public void setEstatus(String estatus) {\r\n        this.estatus = estatus;\r\n    }\r\n\r\n    public String getFormID() {\r\n        return formID;\r\n    }\r\n\r\n    public void setFormID(String formID) {\r\n        this.formID = formID;\r\n    }\r\n\r\n    public String getNombreFormulario() {\r\n        return nombreFormulario;\r\n    }\r\n\r\n    public void setNombreFormulario(String nombreFormulario) {\r\n        this.nombreFormulario = nombreFormulario;\r\n    }\r\n\r\n    public String getFechaInicio() {\r\n        return fechaInicio;\r\n    }\r\n\r\n    public void setFechaInicio(String fechaInicio) {\r\n        this.fechaInicio = fechaInicio;\r\n    }\r\n\r\n    public String getFechaFin() {\r\n        return fechaFin;\r\n    }\r\n\r\n    public void setFechaFin(String fechaFin) {\r\n        this.fechaFin = fechaFin;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/encuestasmexicoandroid/Classes/FormList.java	(revision 6cb6de1571408819b20e589edd7f551b5e46165d)
++++ app/src/main/java/com/example/encuestasmexicoandroid/Classes/FormList.java	(date 1605850739545)
+@@ -1,6 +1,8 @@
+ package com.example.encuestasmexicoandroid.Classes;
+ 
+-public class FormList {
++import java.io.Serializable;
++
++public class FormList implements Serializable {
+     private String formID;
+     private String nombreFormulario;
+     private String fechaInicio;
