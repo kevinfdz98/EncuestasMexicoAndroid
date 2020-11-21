@@ -3,6 +3,7 @@ package com.example.encuestasmexicoandroid;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -52,8 +53,9 @@ public class AddNuevaLista extends AppCompatActivity {
         TextView textView = new TextView(this);
         textView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         textView.setText("Respuesta " + contador + " *");
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24f);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f);
         textView.setTypeface(null, Typeface.BOLD);
+        textView.setTextColor(Color.BLACK);
         linearLayout.addView(textView);
 
         EditText editText = new EditText(this);
@@ -61,6 +63,7 @@ public class AddNuevaLista extends AppCompatActivity {
         editText.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         editText.setHint("Respuesta " + contador);
         editText.setId(contador);
+        editText.setEms(10);
         editText.setTag("EditTextRespuesta" + contador);
         linearLayout.addView(editText);
     }

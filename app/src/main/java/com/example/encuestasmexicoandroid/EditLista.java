@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -69,8 +70,9 @@ public class EditLista extends AppCompatActivity {
         TextView textView = new TextView(this);
         textView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         textView.setText("Respuesta " + contador + " *");
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24f);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f);
         textView.setTypeface(null, Typeface.BOLD);
+        textView.setTextColor(Color.BLACK);
         linearLayout.addView(textView);
 
         EditText editText = new EditText(this);
@@ -78,6 +80,7 @@ public class EditLista extends AppCompatActivity {
         editText.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         editText.setHint("Respuesta " + contador);
         editText.setId(contador);
+        editText.setEms(10);
         editText.setTag("EditTextRespuesta" + contador);
         linearLayout.addView(editText);
     }
@@ -87,8 +90,9 @@ public class EditLista extends AppCompatActivity {
         TextView textView = new TextView(this);
         textView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         textView.setText("Respuesta " + contador + " *");
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24f);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f);
         textView.setTypeface(null, Typeface.BOLD);
+        textView.setTextColor(Color.BLACK);
         linearLayout.addView(textView);
 
         EditText editText = new EditText(this);
@@ -96,6 +100,7 @@ public class EditLista extends AppCompatActivity {
         editText.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         editText.setHint("Respuesta " + contador);
         editText.setId(contador);
+        editText.setEms(10);
         editText.setText(string);
         editText.setTag("EditTextRespuesta" + contador);
         linearLayout.addView(editText);
