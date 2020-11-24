@@ -12,6 +12,7 @@ import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.encuestasmexicoandroid.Adapters.MostrarPreguntasAdapter;
 import com.example.encuestasmexicoandroid.Classes.Pregunta;
@@ -72,6 +73,7 @@ public class ActivityMostrarPreguntas extends AppCompatActivity implements Mostr
             @Override
             public void onClick(View view) {
                 prepareObject();
+                Toast.makeText(getApplicationContext(), "Respuestas guardadas correctamente", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
