@@ -59,6 +59,7 @@ public class QuestionView extends AppCompatActivity {
 
     String [] mOptions = {"Pregunta Abierta", "SI/NO", "Del 1 al 10",
         "Opción Múltiple", "Númerica", "Código Postal"};
+
     List<String> listaDeRespuestas;
     
 
