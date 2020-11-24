@@ -32,6 +32,7 @@ public class EncuestadorMain extends AppCompatActivity implements FormAdapter2.o
     private RecyclerView recyclerViewForm;
     private FormAdapter2 formAdapter2;
     private List<FormList> formularioList;
+    private String nombre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,9 @@ public class EncuestadorMain extends AppCompatActivity implements FormAdapter2.o
         recyclerViewForm.setHasFixedSize(true);
         recyclerViewForm.setLayoutManager(new LinearLayoutManager(this));
         formularioList = new ArrayList<>();
+
+        nombre = getIntent().getStringExtra("NOMBRE");
+
         displayForms();
     }
 
@@ -83,6 +87,7 @@ public class EncuestadorMain extends AppCompatActivity implements FormAdapter2.o
 
         Intent intent = new Intent(this, ActivityMostrarPreguntas.class);
         intent.putExtra("formID", formularioList.get(position).getFormID());
+        intent.putExtra("NOMBRE", nombre);
         startActivityForResult(intent, 1);
     }
 }

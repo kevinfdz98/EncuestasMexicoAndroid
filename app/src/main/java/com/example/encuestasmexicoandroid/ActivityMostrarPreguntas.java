@@ -48,6 +48,7 @@ public class ActivityMostrarPreguntas extends AppCompatActivity implements Mostr
     private List<Pregunta> preguntaList;
     private String TAG = "display";
     private String formID;
+    private String nombre;
     private int NumberofQuestions = 0;
     private DocumentReference documentReference ;
     List<String> listaDeRespuestas;
@@ -64,12 +65,14 @@ public class ActivityMostrarPreguntas extends AppCompatActivity implements Mostr
         guardarRespuesta = findViewById(R.id.Button_GUARDAR_RESPUESTAS_ENCUESTADOR);
         Intent intent = getIntent();
         formID = intent.getStringExtra("formID");
+        nombre = intent.getStringExtra("NOMBRE");
         documentReference = formRef.document(formID);
         displayQuestions(documentReference);
         guardarRespuesta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 prepareObject();
+                finish();
             }
         });
 
@@ -128,7 +131,7 @@ public class ActivityMostrarPreguntas extends AppCompatActivity implements Mostr
             question.put(pregunta.getPreguntaID(), response);
         }
         CollectionReference RespuestasRef = db.collection("Respuestas");
-        RespuestasRef.document(formID).collection("Pablo").document().set(question);
+        RespuestasRef.document(formID).collection(nombre).document().set(question);
     }
 
     @Override

@@ -24,6 +24,7 @@ public class Login extends AppCompatActivity {
     EditText mEmail, mPassword;
     Button mLoginButton;
     Button mRegisterButton;
+    private String nombre;
     // Variable of firestore to access data from firebase
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final FirebaseAuth fAuth = FirebaseAuth.getInstance();
@@ -44,7 +45,6 @@ public class Login extends AppCompatActivity {
                 String password = mPassword.getText().toString().trim();
 
 
-
                 fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -60,6 +60,7 @@ public class Login extends AppCompatActivity {
                                         if (document.exists()) {
                                             String tipoUsuario = (String)document.get("tipo");
                                             String estatusUsuario = (String)document.get("estatus");
+                                            nombre = (String)document.get("nombreUsuario");
                                             if(tipoUsuario.matches("Administrador") &&
                                                     estatusUsuario.matches("Activo")){
                                                 Toast.makeText(Login.this, "Admin Logged in",
@@ -70,8 +71,10 @@ public class Login extends AppCompatActivity {
                                                     estatusUsuario.matches("Activo")){
                                                 Toast.makeText(Login.this, "Encuestador Logged in",
                                                         Toast.LENGTH_SHORT).show();
-                                                startActivity(new Intent(getApplicationContext(),
-                                                        EncuestadorMain.class));
+
+                                                Intent intent = new Intent(getApplicationContext(), EncuestadorMain.class);
+                                                intent.putExtra("NOMBRE", nombre);
+                                                startActivity(intent);
                                             }
 
                                         } else {
