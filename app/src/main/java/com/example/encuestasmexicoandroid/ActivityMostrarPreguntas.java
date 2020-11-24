@@ -183,6 +183,8 @@ public class ActivityMostrarPreguntas extends AppCompatActivity implements Mostr
         Pregunta respuestaPregunta = new Pregunta(idPregunta, texto, tipo);
         respuestaPregunta.setRespuesta(response);
         preguntaList.set(Position, respuestaPregunta);
+        preguntaList.get(Position).setContesto(true);
+        initAdapaterRecycler();
         Log.d(TAG, preguntaList.get(Position).getRespuesta());
     }
 

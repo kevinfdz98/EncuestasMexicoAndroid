@@ -6,6 +6,7 @@ public class Pregunta {
     private String tipoPregunta;
     private String listaRespuesta;
     private String respuesta;
+    private Boolean contesto = false;
 
     public Pregunta() {
         //Empty constuctor needed for firebase
@@ -59,6 +60,14 @@ public class Pregunta {
 
     public int compareTo(Pregunta other) {
         return preguntaID.compareTo(other.preguntaID);
+    }
+
+    public Boolean getContesto() {
+        return contesto;
+    }
+
+    public void setContesto(Boolean contesto) {
+        this.contesto = contesto;
     }
 
 }

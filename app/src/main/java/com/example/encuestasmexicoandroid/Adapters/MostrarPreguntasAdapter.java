@@ -1,6 +1,7 @@
 package com.example.encuestasmexicoandroid.Adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,9 @@ public class MostrarPreguntasAdapter extends RecyclerView.Adapter<MostrarPregunt
         String preguntaTexto = pregunta.getTextoPregunta();
 
         holder.pregunta_texto.setText(preguntaTexto);
+        if (mPreguntaList.get(position).getContesto()) {
+            holder.pregunta_texto.setTextColor(Color.GREEN);
+        }
     }
 
     @Override
